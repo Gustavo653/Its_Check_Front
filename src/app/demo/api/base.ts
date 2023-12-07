@@ -59,7 +59,7 @@ export interface RuntimeConfig {
 export const MenuRoutes = [
     {
         label: 'Geral',
-        role: ['Admin', 'Student', 'Teacher', 'AssistantTeacher'],
+        role: ['Admin', 'Employee'],
         items: [
             {
                 label: 'Dashboard',
@@ -69,85 +69,13 @@ export const MenuRoutes = [
         ],
     },
     {
-        label: 'Aluno',
-        role: ['Admin', 'Student'],
-        items: [],
-    },
-    {
-        label: 'Professor',
-        role: ['Admin', 'Teacher', 'AssistantTeacher'],
-        items: [
-            {
-                label: 'Gerenciar Alunos',
-                icon: 'pi pi-fw pi-sliders-h',
-                routerLink: ['/config/students'],
-            },
-            {
-                label: 'Gerenciar Presença',
-                icon: 'pi pi-fw pi-sliders-h',
-                routerLink: ['/teacher/presence'],
-            },
-            {
-                label: 'Gerenciar Endereços',
-                icon: 'pi pi-fw pi-sliders-h',
-                routerLink: ['/config/addresses'],
-            },
-            {
-                label: 'Gerenciar Responsáveis Legais',
-                icon: 'pi pi-fw pi-sliders-h',
-                routerLink: ['/config/legal-parents'],
-            },
-        ],
-    },
-    {
-        label: 'Administrador',
+        label: 'Configurações',
         role: ['Admin'],
         items: [
             {
-                label: 'Configurações',
-                icon: 'pi pi-fw pi-cog',
-                items: [
-                    {
-                        label: 'Gerenciar Alunos',
-                        icon: 'pi pi-fw pi-sliders-h',
-                        routerLink: ['/config/students'],
-                    },
-                    {
-                        label: 'Gerenciar Graduações',
-                        icon: 'pi pi-fw pi-sliders-h',
-                        routerLink: ['/config/graduations'],
-                    },
-                    {
-                        label: 'Gerenciar Endereços',
-                        icon: 'pi pi-fw pi-sliders-h',
-                        routerLink: ['/config/addresses'],
-                    },
-                    {
-                        label: 'Gerenciar Professores',
-                        icon: 'pi pi-fw pi-sliders-h',
-                        routerLink: ['/config/teachers'],
-                    },
-                    {
-                        label: 'Gerenciar Campos de Operação',
-                        icon: 'pi pi-fw pi-sliders-h',
-                        routerLink: ['/config/field-operations'],
-                    },
-                    {
-                        label: 'Gerenciar Professores dos Campos de Operações',
-                        icon: 'pi pi-fw pi-sliders-h',
-                        routerLink: ['/config/field-operation-teachers'],
-                    },
-                    {
-                        label: 'Gerenciar Alunos dos Campos de Operações',
-                        icon: 'pi pi-fw pi-sliders-h',
-                        routerLink: ['/config/field-operation-students'],
-                    },
-                    {
-                        label: 'Gerenciar Responsáveis Legais',
-                        icon: 'pi pi-fw pi-sliders-h',
-                        routerLink: ['/config/legal-parents'],
-                    },
-                ],
+                label: 'Gerenciar Categorias',
+                icon: 'pi pi-fw pi-sliders-h',
+                routerLink: ['/config/categories'],
             },
         ],
     },

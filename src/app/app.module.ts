@@ -13,7 +13,6 @@ import { ErrorInterceptor } from './demo/components/auth/error.interceptor';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ToastModule } from 'primeng/toast';
-import { FieldOperationService } from './demo/service/fieldOperation.service';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
@@ -35,7 +34,6 @@ import { FieldOperationService } from './demo/service/fieldOperation.service';
         AuthService,
         ConfirmationService,
         MessageService,
-        FieldOperationService,
         StorageService,
     ],
     bootstrap: [AppComponent],

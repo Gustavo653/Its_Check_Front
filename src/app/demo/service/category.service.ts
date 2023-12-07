@@ -7,53 +7,44 @@ import { StorageService } from './storage.service';
 @Injectable({
     providedIn: 'root',
 })
-export class FieldOperationService {
-    constructor(private http: HttpClient, private storageService: StorageService) {}
+export class CategoryService {
+    constructor(private http: HttpClient, private storageService: StorageService) { }
 
     private getAPIURL(): Observable<string> {
         return this.storageService.getAPIURL();
     }
 
-    getFieldOperations(): Observable<any> {
+    getCategories(): Observable<any> {
         return this.getAPIURL().pipe(
             switchMap((url) => {
-                const apiUrl = `${url}/fieldOperation`;
+                const apiUrl = `${url}/category`;
                 return this.http.get(apiUrl);
             })
         );
     }
 
-    getFieldOperationForListbox(): Observable<any> {
+    createCategory(data: any): Observable<any> {
         return this.getAPIURL().pipe(
             switchMap((url) => {
-                const apiUrl = `${url}/fieldOperation/listbox`;
-                return this.http.get(apiUrl);
-            })
-        );
-    }
-
-    createFieldOperation(data: any): Observable<any> {
-        return this.getAPIURL().pipe(
-            switchMap((url) => {
-                const apiUrl = `${url}/fieldOperation`;
+                const apiUrl = `${url}/category`;
                 return this.http.post(apiUrl, data);
             })
         );
     }
 
-    updateFieldOperation(id: string, data: any): Observable<any> {
+    updateCategory(id: string, data: any): Observable<any> {
         return this.getAPIURL().pipe(
             switchMap((url) => {
-                const apiUrl = `${url}/fieldOperation/${id}`;
+                const apiUrl = `${url}/category/${id}`;
                 return this.http.put(apiUrl, data);
             })
         );
     }
 
-    deleteFieldOperation(id: string): Observable<any> {
+    deleteCategory(id: string): Observable<any> {
         return this.getAPIURL().pipe(
             switchMap((url) => {
-                const apiUrl = `${url}/fieldOperation/${id}`;
+                const apiUrl = `${url}/category/${id}`;
                 return this.http.delete(apiUrl);
             })
         );

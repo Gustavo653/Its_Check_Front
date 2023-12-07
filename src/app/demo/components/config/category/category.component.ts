@@ -1,29 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { MessageServiceSuccess, TableColumn } from 'src/app/demo/api/base';
-import { FieldOperationService } from 'src/app/demo/service/fieldOperation.service';
+import { CategoryService } from 'src/app/demo/service/category.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
 @Component({
-    templateUrl: './fieldOperation.component.html',
+    templateUrl: './category.component.html',
     providers: [MessageService, ConfirmationService],
-    styles: [
-        `
-            :host ::ng-deep .p-frozen-column {
-                font-weight: bold;
-            }
-
-            :host ::ng-deep .p-datatable-frozen-tbody {
-                font-weight: bold;
-            }
-
-            :host ::ng-deep .p-progressbar {
-                height: 0.5rem;
-            }
-        `,
-    ],
 })
-export class FieldOperationComponent implements OnInit {
+export class CategoryComponent implements OnInit {
     dialog: boolean = false;
     loading: boolean = true;
     cols: TableColumn[] = [];
@@ -33,7 +18,7 @@ export class FieldOperationComponent implements OnInit {
     selectedRegistry: any = {};
     constructor(
         protected layoutService: LayoutService,
-        private fieldOperationService: FieldOperationService,
+        private categoryService: CategoryService,
         private confirmationService: ConfirmationService,
         private messageService: MessageService
     ) { }
@@ -98,7 +83,7 @@ export class FieldOperationComponent implements OnInit {
     }
 
     validateData(): boolean {
-        if (!this.selectedRegistry.name || !this.selectedRegistry.addressId) {
+        if (!this.selectedRegistry.name) {
             this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Preencha todos os campos obrigatórios.' });
             return false;
         }
@@ -109,12 +94,12 @@ export class FieldOperationComponent implements OnInit {
     save() {
         if (this.validateData()) {
             if (this.selectedRegistry.id) {
-                this.fieldOperationService.updateFieldOperation(this.selectedRegistry.id, this.selectedRegistry).subscribe(() => {
+                this.categoryService.updateCategory(this.selectedRegistry.id, this.selectedRegistry).subscribe(() => {
                     this.hideDialog();
                     this.fetchData();
                 });
             } else {
-                this.fieldOperationService.createFieldOperation(this.selectedRegistry).subscribe(() => {
+                this.categoryService.createCategory(this.selectedRegistry).subscribe(() => {
                     this.hideDialog();
                     this.fetchData();
                 });
@@ -130,7 +115,7 @@ export class FieldOperationComponent implements OnInit {
             rejectLabel: 'Rejeitar',
             accept: () => {
                 this.loading = true;
-                this.fieldOperationService.deleteFieldOperation(registry.id).subscribe((x) => {
+                this.categoryService.deleteCategory(registry.id).subscribe((x) => {
                     this.messageService.add(MessageServiceSuccess);
                     this.fetchData();
                 });
@@ -139,7 +124,7 @@ export class FieldOperationComponent implements OnInit {
     }
 
     fetchData() {
-        this.fieldOperationService.getFieldOperations().subscribe((y) => {
+        this.categoryService.getCategories().subscribe((y) => {
             this.data = y.object;
             this.loading = false;
         });

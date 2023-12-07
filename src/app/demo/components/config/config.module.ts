@@ -16,13 +16,13 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { FieldOperationComponent } from './fieldOperation/fieldOperation.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FileUploadModule } from 'primeng/fileupload';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
     declarations: [
-        FieldOperationComponent,
+        CategoryComponent
     ],
     imports: [
         CommonModule,

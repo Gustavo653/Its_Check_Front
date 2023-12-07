@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FieldOperationComponent } from './fieldOperation/fieldOperation.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
-            { path: 'field-operations', component: FieldOperationComponent },
+            { path: 'categories', component: CategoryComponent },
         ]),
     ],
     exports: [RouterModule],
