@@ -30,11 +30,6 @@ import { AuthGuard } from './demo/components/auth/auth.guard';
                             canActivate: [AuthGuard],
                             loadChildren: () => import('./demo/components/config/config.module').then((m) => m.ConfigModule),
                         },
-                        {
-                            path: 'teacher',
-                            canActivate: [AuthGuard],
-                            loadChildren: () => import('./demo/components/teacher/teacher.module').then((m) => m.TeacherModule),
-                        },
                     ],
                 },
                 { path: 'pages/notfound', component: NotfoundComponent },

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { MessageServiceSuccess, TableColumn } from 'src/app/demo/api/base';
-import { AddressService } from 'src/app/demo/service/address.service';
 import { FieldOperationService } from 'src/app/demo/service/fieldOperation.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
@@ -36,9 +35,8 @@ export class FieldOperationComponent implements OnInit {
         protected layoutService: LayoutService,
         private fieldOperationService: FieldOperationService,
         private confirmationService: ConfirmationService,
-        private addressService: AddressService,
         private messageService: MessageService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.cols = [
@@ -141,12 +139,9 @@ export class FieldOperationComponent implements OnInit {
     }
 
     fetchData() {
-        this.addressService.getAddressesForListbox().subscribe((x) => {
-            this.addressesListbox = x.object;
-            this.fieldOperationService.getFieldOperations().subscribe((y) => {
-                this.data = y.object;
-                this.loading = false;
-            });
+        this.fieldOperationService.getFieldOperations().subscribe((y) => {
+            this.data = y.object;
+            this.loading = false;
         });
     }
 }
