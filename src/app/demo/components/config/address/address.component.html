@@ -1,0 +1,25 @@
+<p-progressBar [hidden]="!loading" mode="indeterminate" [style]="{ height: '3px' }"></p-progressBar>
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>
+<p-dialog [(visible)]="modalDialog" header="Detalhes do Registro" [transitionOptions]="'100ms'" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-fieldset legend="Informações Gerais">
+            <label>Rua</label><small class="p-error">*</small>
+            <input [(ngModel)]="selectedRegistry.streetName" pInputText />
+            <label>Número</label><small class="p-error">*</small>
+            <input [(ngModel)]="selectedRegistry.streetNumber" pInputText />
+            <label>Bairro</label><small class="p-error">*</small>
+            <input [(ngModel)]="selectedRegistry.neighborhood" pInputText />
+        </p-fieldset>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="save()"></button>
+        <button pButton pRipple label="Clonar" *ngIf="selectedRegistry.id" icon="pi pi-clone" class="p-button-text" (click)="save(1)"></button>
+    </ng-template>
+</p-dialog>
+<div class="card" *ngIf="loading == false">
+    <h3>Gerenciar Endereços</h3>
+    <button pButton icon="pi pi-plus" label="Criar Endereço" class="p-button-success mb-3" (click)="create()"></button>
+    <app-form-table [loading]="loading" [cols]="cols" [data]="data" (event)="event($event)"></app-form-table>
+</div>

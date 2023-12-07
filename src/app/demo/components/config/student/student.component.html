@@ -1,0 +1,111 @@
+<p-progressBar [hidden]="!loading" mode="indeterminate" [style]="{ height: '3px' }"></p-progressBar>
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>
+<p-dialog [(visible)]="modalDialog" header="Detalhes do Registro" [transitionOptions]="'100ms'" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-3">
+                <p-fieldset legend="Dados Pessoais">
+                    <label>Nome</label><small class="p-error">*</small>
+                    <input [(ngModel)]="selectedRegistry.name" pInputText />
+                    <label>RG</label>
+                    <input [(ngModel)]="selectedRegistry.rg" pInputText />
+                    <label>CPF</label>
+                    <input [(ngModel)]="selectedRegistry.cpf" pInputText />
+                    <label>Nome da Escola</label>
+                    <input [(ngModel)]="selectedRegistry.schoolName" pInputText />
+                    <label>Série da Escola</label>
+                    <p-inputNumber [(ngModel)]="selectedRegistry.schoolGrade" [minFractionDigits]="0" [min]="1" [max]="9" [maxFractionDigits]="0" suffix="ª Série"> </p-inputNumber>
+                    <label>Peso</label><small class="p-error">*</small>
+                    <p-inputNumber [(ngModel)]="selectedRegistry.weight" [minFractionDigits]="0" [min]="1" [max]="250" [maxFractionDigits]="2" suffix=" Kg"> </p-inputNumber>
+                    <label>Altura</label><small class="p-error">*</small>
+                    <p-inputNumber [(ngModel)]="selectedRegistry.height" [minFractionDigits]="0" [min]="1" [max]="250" [maxFractionDigits]="2" suffix=" Cm"> </p-inputNumber>
+                    <label>Senha</label><small *ngIf="!selectedRegistry.id" class="p-error">*</small>
+                    <input [(ngModel)]="selectedRegistry.password" pInputText />
+                    <label>Data de Nascimento</label><small class="p-error">*</small>
+                    <p-calendar [(ngModel)]="birthDate" dateFormat="dd/mm/yy" [showTime]="false" [showButtonBar]="true" appendTo="body"></p-calendar>
+                </p-fieldset>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <p-fieldset legend="Dados de Contato">
+                    <label>Email</label><small class="p-error">*</small>
+                    <input [(ngModel)]="selectedRegistry.email" pInputText />
+                    <label>Telefone</label><small class="p-error">*</small>
+                    <input [(ngModel)]="selectedRegistry.phoneNumber" pInputText />
+                    <label>Telefone de Emergência</label>
+                    <input [(ngModel)]="selectedRegistry.emergencyNumber" pInputText />
+                    <label>Endereço</label>
+                    <p-dropdown
+                        [options]="addressesListbox"
+                        [(ngModel)]="selectedRegistry.addressId"
+                        placeholder="Selecione um valor"
+                        [showClear]="true"
+                        [filter]="true"
+                        filterBy="name"
+                        optionValue="code"
+                        optionLabel="name"
+                        appendTo="body"
+                        class="w-full"
+                    ></p-dropdown>
+                </p-fieldset>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <p-fieldset legend="Imagem"
+                    ><label>Imagem</label><small *ngIf="!selectedRegistry.id" class="p-error">*</small>
+                    <p-fileUpload
+                        name="file"
+                        accept="image/*"
+                        [customUpload]="true"
+                        (onRemove)="removeFile($event)"
+                        (onSelect)="onUpload($event)"
+                        [showUploadButton]="false"
+                        [showCancelButton]="false"
+                        [multiple]="false"
+                        chooseLabel="Selecionar"
+                        [maxFileSize]="20000000"
+                    >
+                    </p-fileUpload>
+                    <img class="w-full mt-4 shadow-2 border-round" [src]="selectedRegistry.url" />
+                </p-fieldset>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <p-fieldset legend="Vínculos">
+                    <label>Graduação</label><small class="p-error">*</small>
+                    <p-dropdown
+                        [options]="graduationsListbox"
+                        [(ngModel)]="selectedRegistry.graduationId"
+                        placeholder="Selecione um valor"
+                        [filter]="true"
+                        filterBy="name"
+                        optionValue="code"
+                        optionLabel="name"
+                        appendTo="body"
+                        class="w-full"
+                    ></p-dropdown>
+                    <label>Responsável Legal</label>
+                    <p-dropdown
+                        [options]="legalParentsListbox"
+                        [(ngModel)]="selectedRegistry.legalParentId"
+                        placeholder="Selecione um valor"
+                        [filter]="true"
+                        filterBy="name"
+                        optionValue="code"
+                        optionLabel="name"
+                        appendTo="body"
+                        class="w-full"
+                        [showClear]="true"
+                    ></p-dropdown>
+                </p-fieldset>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="save()"></button>
+    </ng-template>
+</p-dialog>
+<div class="card" *ngIf="loading == false">
+    <h3>Gerenciar Alunos</h3>
+    <button pButton icon="pi pi-plus" label="Criar Aluno" class="p-button-success mb-3" (click)="create()"></button>
+    <app-form-table [loading]="loading" [cols]="cols" [data]="data" (event)="event($event)"></app-form-table>
+</div>
