@@ -77,6 +77,11 @@ export const MenuRoutes = [
                 icon: 'pi pi-fw pi-sliders-h',
                 routerLink: ['/config/categories'],
             },
+            {
+                label: 'Gerenciar Itens',
+                icon: 'pi pi-fw pi-sliders-h',
+                routerLink: ['/config/items'],
+            },
         ],
     },
 ];

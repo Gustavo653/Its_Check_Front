@@ -19,10 +19,12 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CategoryComponent } from './category/category.component';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
     declarations: [
-        CategoryComponent
+        CategoryComponent,
+        ItemComponent
     ],
     imports: [
         CommonModule,
