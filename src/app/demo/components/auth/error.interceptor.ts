@@ -3,14 +3,13 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpEvent
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AuthService } from '../../service/auth.service';
 import { MessageService } from 'primeng/api';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private router: Router, private authService: AuthService, private messageService: MessageService) {}
+    constructor(private router: Router, private messageService: MessageService) { }
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(

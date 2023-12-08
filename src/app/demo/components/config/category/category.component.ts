@@ -93,15 +93,22 @@ export class CategoryComponent implements OnInit {
 
     save() {
         if (this.validateData()) {
-            if (this.selectedRegistry.id) {
-                this.categoryService.updateCategory(this.selectedRegistry.id, this.selectedRegistry).subscribe(() => {
-                    this.hideDialog();
+            var data = this.selectedRegistry;
+            this.hideDialog();
+            this.loading = true;
+            if (data.id) {
+                this.categoryService.updateCategory(data.id, data).subscribe(() => {
+                    this.messageService.add(MessageServiceSuccess);
                     this.fetchData();
+                }, () => {
+                    this.loading = false;
                 });
             } else {
-                this.categoryService.createCategory(this.selectedRegistry).subscribe(() => {
-                    this.hideDialog();
+                this.categoryService.createCategory(data).subscribe(() => {
+                    this.messageService.add(MessageServiceSuccess);
                     this.fetchData();
+                }, () => {
+                    this.loading = false;
                 });
             }
         }
@@ -115,17 +122,19 @@ export class CategoryComponent implements OnInit {
             rejectLabel: 'Rejeitar',
             accept: () => {
                 this.loading = true;
-                this.categoryService.deleteCategory(registry.id).subscribe((x) => {
+                this.categoryService.deleteCategory(registry.id).subscribe(() => {
                     this.messageService.add(MessageServiceSuccess);
                     this.fetchData();
+                }, () => {
+                    this.loading = false;
                 });
             },
         });
     }
 
     fetchData() {
-        this.categoryService.getCategories().subscribe((y) => {
-            this.data = y.object;
+        this.categoryService.getCategories().subscribe((x) => {
+            this.data = x.object;
             this.loading = false;
         });
     }
